@@ -26,7 +26,7 @@ Public Class Clsfunct
     Friend Function Readconnectionstring() As String
 
         Dim secretkey As String = "Fhghqwjehqwlegtoit123mnk12%&4#"
-        Dim path As String = ("txtcon\bcicon.txt")
+        Dim path As String = ("txtcon\gticon.txt")
         Dim sr As New StreamReader(path)
 
         server = sr.ReadLine()
@@ -40,8 +40,8 @@ Public Class Clsfunct
         uid = Decryption(uid, secretkey)
         pass = Decryption(pass, secretkey)
 
-        Dim cons As String = "Data Source =" & server & "; DataBase =" & db & "; User Id =" & uid & "; Password =" & pass & ";"
-        'Dim cons As String = "Data Source =(local); DataBase =master; User Id =sa; Password =admin@123;"
+        ' Dim cons As String = "Data Source =" & server & "; DataBase =" & db & "; User Id =" & uid & "; Password =" & pass & ";"
+        Dim cons As String = "Data Source =(local); DataBase =master; User Id =sa; Password =P@$$w0rd;"
         Return cons
     End Function
     Friend Function customer(ByVal condt As String, ByVal dbname As String) As DataSet
@@ -90,16 +90,41 @@ Public Class Clsfunct
         da.Fill(ds)
         Return ds
     End Function
-    Friend Function custstatement(ByVal fcust As String, ByVal tcust As String, ByVal dbname As String) As DataSet
+    Friend Function custstatement(ByVal fcust As String, ByVal tcust As String, ByVal fdate As Integer, ByVal tdate As Integer, ByVal dbname As String) As DataSet
         Dim cmd As New SqlCommand
-        Dim sql As String = " SELECT DISTINCT b.TRXTYPETXT as TRXTYPE, b.IDINVC, c.NAMECUST, b.DATEINVC as DATEINVC, b.IDCUST, b.AMTINVCTC as AMTINVCTC, b.DESCINVC as DESCINVC,  c.CODECURN, b.AMTINVCHC as AMTINVCHC, b.CNTBTCH as Batch, b.CNTITEM as [Entry] " & _
-                                 " FROM  " & dbname & ".dbo.ARCUS c INNER JOIN " & dbname & ".dbo.CSCOM m ON c.AUDTORG=m.ORGID INNER JOIN " & dbname & ".dbo.AROBL b ON c.IDCUST=b.IDCUST LEFT OUTER JOIN " & dbname & ".dbo.ARTCR t ON b.CNTBTCH=t.CNTBTCH AND b.CNTITEM=t.CNTITEM AND b.IDCUST=t.IDCUST  INNER JOIN " & dbname & ".dbo.CSCCD s ON m.HOMECUR=s.CURID " & _
-                                 " WHERE   b.IDCUST between '" & fcust & "' and '" & tcust & "' and b.TRXTYPETXT<> 51" & _
-                                 " union all " & _
-                                 " SELECT DISTINCT p.TRXTYPE as TRXTYPE, p.IDINVC, c.NAMECUST, p.DATEBUS as DATEINVC,p.IDCUST, p.AMTPAYMTC as AMTINVCTC, p.IDMEMOXREF as DESCINVC,   c.CODECURN, p.AMTPAYMHC as AMTINVCHC,  p.CNTBTCH as Batch,  p.CNTITEM as [Entry]" & _
-                                 " FROM  " & dbname & ".dbo.ARCUS c INNER JOIN " & dbname & ".dbo.CSCOM m ON c.AUDTORG=m.ORGID INNER JOIN " & dbname & ".dbo.AROBL b ON c.IDCUST=b.IDCUST INNER JOIN " & dbname & ".dbo.AROBP p ON b.IDCUST=p.IDCUST AND b.IDINVC=p.IDINVC LEFT OUTER JOIN " & dbname & ".dbo.ARTCR t ON b.CNTBTCH=t.CNTBTCH AND b.CNTITEM=t.CNTITEM AND b.IDCUST=t.IDCUST LEFT OUTER JOIN " & dbname & ".dbo.ARRRH h ON p.IDBANK=h.IDBANK AND p.IDCUST=h.IDCUST AND p.IDRMIT=h.IDRMIT AND p.DEPSEQ=h.DEPSEQ AND p.DEPLINE=h.DEPLINE AND p.DATERMIT=h.DATERMIT INNER JOIN " & dbname & ".dbo.CSCCD s ON m.HOMECUR=s.CURID " & _
-                                 " WHERE  p.IDCUST  between '" & fcust & "' and '" & tcust & "'" & _
-                                 " and (p.TRXTYPE = 4 or ( p.TRXTYPE = 53 and p.IDMEMOXREF= '') or ( p.TRXTYPE = 59 and p.IDMEMOXREF= '') or   p.TRXTYPE = 65  or   p.TRXTYPE = 67 ) and p.TRXTYPE<>51" & _
+        Dim sql As String = " SELECT DISTINCT b.TRXTYPETXT as TRXTYPE, b.IDINVC, c.NAMECUST, b.DATEINVC as DATEINVC, b.IDCUST, b.AMTINVCTC as AMTINVCTC, b.DESCINVC as DESCINVC,  c.CODECURN, b.AMTINVCHC as AMTINVCHC, b.CNTBTCH as Batch, b.CNTITEM as [Entry] " &
+                                 " FROM  " & dbname & ".dbo.ARCUS c INNER JOIN " & dbname & ".dbo.CSCOM m ON c.AUDTORG=m.ORGID INNER JOIN " & dbname & ".dbo.AROBL b ON c.IDCUST=b.IDCUST LEFT OUTER JOIN " & dbname & ".dbo.ARTCR t ON b.CNTBTCH=t.CNTBTCH AND b.CNTITEM=t.CNTITEM AND b.IDCUST=t.IDCUST  INNER JOIN " & dbname & ".dbo.CSCCD s ON m.HOMECUR=s.CURID  " &
+                                 " WHERE   ltrim(rtrim(b.IDCUST)) between ltrim(rtrim('" & fcust & "')) and ltrim(rtrim('" & tcust & "')) and b.DATEINVC between " & fdate & " and " & tdate & " and b.TRXTYPETXT<> 51" &
+                                 " union all " &
+                                 " SELECT DISTINCT p.TRXTYPE as TRXTYPE, p.IDINVC, c.NAMECUST, p.DATEBUS as DATEINVC,p.IDCUST, p.AMTPAYMTC as AMTINVCTC, p.IDMEMOXREF as DESCINVC,   c.CODECURN, p.AMTPAYMHC as AMTINVCHC,  p.CNTBTCH as Batch,  p.CNTITEM as [Entry]" &
+                                 " FROM  " & dbname & ".dbo.ARCUS c INNER JOIN " & dbname & ".dbo.CSCOM m ON c.AUDTORG=m.ORGID INNER JOIN " & dbname & ".dbo.AROBL b ON c.IDCUST=b.IDCUST INNER JOIN " & dbname & ".dbo.AROBP p ON b.IDCUST=p.IDCUST AND b.IDINVC=p.IDINVC LEFT OUTER JOIN " & dbname & ".dbo.ARTCR t ON b.CNTBTCH=t.CNTBTCH AND b.CNTITEM=t.CNTITEM AND b.IDCUST=t.IDCUST LEFT OUTER JOIN " & dbname & ".dbo.ARRRH h ON p.IDBANK=h.IDBANK AND p.IDCUST=h.IDCUST AND p.IDRMIT=h.IDRMIT AND p.DEPSEQ=h.DEPSEQ AND p.DEPLINE=h.DEPLINE AND p.DATERMIT=h.DATERMIT INNER JOIN " & dbname & ".dbo.CSCCD s ON m.HOMECUR=s.CURID " &
+                                 " WHERE  ltrim(rtrim(p.IDCUST)) between ltrim(rtrim('" & fcust & "')) and ltrim(rtrim('" & tcust & "')) and p.DATEBUS between " & fdate & " and " & tdate & " " &
+                                 " and (p.TRXTYPE = 4 or ( p.TRXTYPE = 53 and p.IDMEMOXREF= '') or ( p.TRXTYPE = 59 and p.IDMEMOXREF= '') or   p.TRXTYPE = 65  or   p.TRXTYPE = 67 ) and p.TRXTYPE<>51" &
+                                 " order by IDCUST,DATEINVC"
+
+        Dim da As New SqlDataAdapter
+        Dim con As New SqlConnection(Readconnectionstring())
+        With cmd
+            .CommandText = sql
+            .CommandType = CommandType.Text
+            .Connection = con
+        End With
+        da.SelectCommand = cmd
+        Dim ds As New DataSet
+        da.Fill(ds)
+        Return ds
+    End Function
+
+    Friend Function bb(ByVal fcust As String, ByVal tcust As String, ByVal fdate As Integer, ByVal dbname As String) As DataSet
+        Dim cmd As New SqlCommand
+        Dim sql As String = " SELECT DISTINCT b.TRXTYPETXT as TRXTYPE, b.IDINVC, c.NAMECUST, b.DATEINVC as DATEINVC, b.IDCUST, b.AMTINVCTC as AMTINVCTC, b.DESCINVC as DESCINVC,  c.CODECURN, b.AMTINVCHC as AMTINVCHC, b.CNTBTCH as Batch, b.CNTITEM as [Entry] " &
+                                 " FROM  " & dbname & ".dbo.ARCUS c INNER JOIN " & dbname & ".dbo.CSCOM m ON c.AUDTORG=m.ORGID INNER JOIN " & dbname & ".dbo.AROBL b ON c.IDCUST=b.IDCUST LEFT OUTER JOIN " & dbname & ".dbo.ARTCR t ON b.CNTBTCH=t.CNTBTCH AND b.CNTITEM=t.CNTITEM AND b.IDCUST=t.IDCUST  INNER JOIN " & dbname & ".dbo.CSCCD s ON m.HOMECUR=s.CURID   " &
+                                 " WHERE   ltrim(rtrim(b.IDCUST)) between ltrim(rtrim('" & fcust & "')) and ltrim(rtrim('" & tcust & "')) and b.DATEINVC <" & fdate & " and b.TRXTYPETXT<> 51" &
+                                 " union all " &
+                                 " SELECT DISTINCT p.TRXTYPE as TRXTYPE, p.IDINVC, c.NAMECUST, p.DATEBUS as DATEINVC,p.IDCUST, p.AMTPAYMTC as AMTINVCTC, p.IDMEMOXREF as DESCINVC,   c.CODECURN, p.AMTPAYMHC as AMTINVCHC,  p.CNTBTCH as Batch,  p.CNTITEM as [Entry]" &
+                                 " FROM  " & dbname & ".dbo.ARCUS c INNER JOIN " & dbname & ".dbo.CSCOM m ON c.AUDTORG=m.ORGID INNER JOIN " & dbname & ".dbo.AROBL b ON c.IDCUST=b.IDCUST INNER JOIN " & dbname & ".dbo.AROBP p ON b.IDCUST=p.IDCUST AND b.IDINVC=p.IDINVC LEFT OUTER JOIN " & dbname & ".dbo.ARTCR t ON b.CNTBTCH=t.CNTBTCH AND b.CNTITEM=t.CNTITEM AND b.IDCUST=t.IDCUST LEFT OUTER JOIN " & dbname & ".dbo.ARRRH h ON p.IDBANK=h.IDBANK AND p.IDCUST=h.IDCUST AND p.IDRMIT=h.IDRMIT AND p.DEPSEQ=h.DEPSEQ AND p.DEPLINE=h.DEPLINE AND p.DATERMIT=h.DATERMIT INNER JOIN " & dbname & ".dbo.CSCCD s ON m.HOMECUR=s.CURID  " &
+                                 " WHERE  ltrim(rtrim(p.IDCUST)) between ltrim(rtrim('" & fcust & "')) and ltrim(rtrim('" & tcust & "')) and p.DATEBUS< " & fdate & "" &
+                                 " and (p.TRXTYPE = 4 or ( p.TRXTYPE = 53 and p.IDMEMOXREF= '') or ( p.TRXTYPE = 59 and p.IDMEMOXREF= '') or   p.TRXTYPE = 65  or   p.TRXTYPE = 67 ) and p.TRXTYPE<>51" &
                                  " order by IDCUST,DATEINVC"
 
         Dim da As New SqlDataAdapter

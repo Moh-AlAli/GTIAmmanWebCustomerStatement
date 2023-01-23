@@ -180,7 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CATS_Rep.ico" />
-    <Content Include="bin\Debug\txtcon\bcicon.txt" />
+    <Content Include="bin\Debug\txtcon\gticon.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\xsd\" />

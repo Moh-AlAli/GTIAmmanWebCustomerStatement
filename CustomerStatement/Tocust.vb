@@ -1,28 +1,11 @@
-﻿'Imports AccpacCOMAPI
+﻿
 Public Class tocust
     Private i As Integer
     Private j As Integer
-    'Private os As New Session
-    'Private dblink As DBLink
-    'Private compid As String = ""
+
     Private Sub tocust_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
-            'Dim arv As AccpacView
-            'arv = custstatement.xdbcom.OpenView2("AR0024")
-            'Dim arcusds As DataSet = New DataSet("AR")
-            'Dim cust As DataTable = arcusds.Tables.Add("ARCUS")
-            'Dim name As DataColumn = cust.Columns.Add("IDCUST", Type.GetType("System.String"))
-            'Dim id As DataColumn = cust.Columns.Add("NAMECUST", Type.GetType("System.String"))
-            'Dim row As DataRow
-            'row = cust.NewRow()
-            'Do While arv.FilterFetch(False)
-            '    Dim cid As String = arv.Fields.FieldByName("IDCUST").Value.ToString()
-            '    Dim cn As String = arv.Fields.FieldByName("NAMECUST").Value.ToString()
-            '    row("IDCUST") = cid
-            '    row("NAMECUST") = cn
-            '    arcusds.Tables(0).Rows.Add(row)
-            '    row = cust.NewRow()
-            'Loop
+
             Dim arcusds As New DataSet
             Dim c As New Clsfunct
 
@@ -52,8 +35,6 @@ Public Class tocust
         Try
 
 
-            'Dim arv As AccpacView
-            'arv = custstatement.xdbcom.OpenView2("AR0024")
             Dim searfil As String = ""
 
             If Txtcusno.Text <> Nothing And Txtname.Text <> Nothing Then
@@ -64,26 +45,11 @@ Public Class tocust
                 searfil = " Where IDCUST like N'%" + Txtcusno.Text + "%' "
             End If
 
-            'arv.Browse(searfil, True)
             Dim arcusds As New DataSet
             Dim c As New Clsfunct
 
             arcusds = c.customer(searfil, OPCompany.compid)
 
-            'Dim cust As DataTable = arcusds.Tables.Add("ARCUS")
-            'Dim id As DataColumn = cust.Columns.Add("IDCUST", Type.GetType("System.String"))
-            'Dim name As DataColumn = cust.Columns.Add("NAMECUST", Type.GetType("System.String"))
-            'cust.PrimaryKey = New DataColumn() {id}
-            'Dim row As DataRow
-            'row = cust.NewRow()
-            'Do While arv.FilterFetch(False)
-            '    Dim cid As String = arv.Fields.FieldByName("IDCUST").Value.ToString()
-            '    Dim cn As String = arv.Fields.FieldByName("NAMECUST").Value.ToString()
-            '    row("IDCUST") = cid
-            '    row("NAMECUST") = cn
-            '    arcusds.Tables(0).Rows.Add(row)
-            '    row = cust.NewRow()
-            'Loop
             Dim dt As DataTable = arcusds.Tables(0)
 
             i = DGtocus.CurrentCell.RowIndex
@@ -104,43 +70,25 @@ Public Class tocust
 
     Private Sub Txtcusno_MouseLeave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Txtcusno.MouseLeave
 
-    
-
-        'Dim arv As AccpacView
-        'arv = custstatement.xdbcom.OpenView2("AR0024")
-            Dim searfil As String = ""
 
 
-         If Txtcusno.Text <> Nothing And Txtname.Text <> Nothing Then
+        Dim searfil As String = ""
+
+
+        If Txtcusno.Text <> Nothing And Txtname.Text <> Nothing Then
             searfil = " Where NAMECUST Like N'%" + Txtname.Text + "%' And IDCUST Like N'%" + Txtcusno.Text + "%' "
         ElseIf Txtname.Text <> Nothing And Txtcusno.Text = Nothing Then
             searfil = " Where NAMECUST like N'%" + Txtname.Text + "%' "
         ElseIf Txtcusno.Text <> Nothing And Txtname.Text = Nothing Then
             searfil = " Where IDCUST like N'%" + Txtcusno.Text + "%' "
         End If
-        'arv.Browse(searfil, True)
         Dim arcusds As New DataSet
         Dim c As New Clsfunct
 
         arcusds = c.customer(searfil, OPCompany.compid)
 
-        'Dim cust As DataTable = arcusds.Tables.Add("ARCUS")
-        'Dim id As DataColumn = cust.Columns.Add("IDCUST", Type.GetType("System.String"))
-        'Dim name As DataColumn = cust.Columns.Add("NAMECUST", Type.GetType("System.String"))
-        'cust.PrimaryKey = New DataColumn() {id}
-        'Dim row As DataRow
-        'row = cust.NewRow()
-        'Do While arv.FilterFetch(False)
-        '    Dim cid As String = arv.Fields.FieldByName("IDCUST").Value.ToString()
-        '    Dim cn As String = arv.Fields.FieldByName("NAMECUST").Value.ToString()
-        '    row("IDCUST") = cid
-        '    row("NAMECUST") = cn
-        '    arcusds.Tables(0).Rows.Add(row)
-        '    row = cust.NewRow()
-        'Loop
 
-
-            DGtocus.DataSource = arcusds.Tables(0)
+        DGtocus.DataSource = arcusds.Tables(0)
 
 
 
@@ -150,40 +98,21 @@ Public Class tocust
 
         Try
 
-          
 
-            'Dim arv As AccpacView
-            'arv = custstatement.xdbcom.OpenView2("AR0024")
             Dim searfil As String = ""
-  If Txtcusno.Text <> Nothing And Txtname.Text <> Nothing Then
+            If Txtcusno.Text <> Nothing And Txtname.Text <> Nothing Then
                 searfil = " Where NAMECUST Like N'%" + Txtname.Text + "%' And IDCUST Like N'%" + Txtcusno.Text + "%' "
             ElseIf Txtname.Text <> Nothing And Txtcusno.Text = Nothing Then
                 searfil = " Where NAMECUST like N'%" + Txtname.Text + "%' "
             ElseIf Txtcusno.Text <> Nothing And Txtname.Text = Nothing Then
                 searfil = " Where IDCUST like N'%" + Txtcusno.Text + "%' "
             End If
-            'arv.Browse(searfil, True)
             Dim arcusds As New DataSet
             Dim c As New Clsfunct
 
             arcusds = c.customer(searfil, OPCompany.compid)
 
-            'Dim cust As DataTable = arcusds.Tables.Add("ARCUS")
-            'Dim id As DataColumn = cust.Columns.Add("IDCUST", Type.GetType("System.String"))
-            'Dim name As DataColumn = cust.Columns.Add("NAMECUST", Type.GetType("System.String"))
-            'cust.PrimaryKey = New DataColumn() {id}
-            'Dim row As DataRow
-            'row = cust.NewRow()
-            'Do While arv.FilterFetch(False)
-            '    Dim cid As String = arv.Fields.FieldByName("IDCUST").Value.ToString()
-            '    Dim cn As String = arv.Fields.FieldByName("NAMECUST").Value.ToString()
-            '    row("IDCUST") = cid
-            '    row("NAMECUST") = cn
-            '    arcusds.Tables(0).Rows.Add(row)
-            '    row = cust.NewRow()
-            'Loop
-
-                DGtocus.DataSource = arcusds.Tables(0)
+            DGtocus.DataSource = arcusds.Tables(0)
 
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -195,9 +124,7 @@ Public Class tocust
 
 
 
-            'Dim arv As AccpacView
-            'arv = custstatement.xdbcom.OpenView2("AR0024")
-           
+
             Dim searfil As String = ""
 
          If Txtcusno.Text <> Nothing And Txtname.Text <> Nothing Then
@@ -207,43 +134,11 @@ Public Class tocust
             ElseIf Txtcusno.Text <> Nothing And Txtname.Text = Nothing Then
                 searfil = " Where IDCUST like N'%" + Txtcusno.Text + "%' "
             End If
-            'arv.Browse(searfil, True)
             Dim arcusds As New DataSet
             Dim c As New Clsfunct
 
             arcusds = c.customer(searfil, OPCompany.compid)
 
-            'Dim cust As DataTable = arcusds.Tables.Add("ARCUS")
-            'Dim id As DataColumn = cust.Columns.Add("IDCUST", Type.GetType("System.String"))
-            'Dim name As DataColumn = cust.Columns.Add("NAMECUST", Type.GetType("System.String"))
-            'cust.PrimaryKey = New DataColumn() {id}
-            'Dim row As DataRow
-            'row = cust.NewRow()
-            'Do While arv.FilterFetch(False)
-            '    Dim cid As String = arv.Fields.FieldByName("IDCUST").Value.ToString()
-            '    Dim cn As String = arv.Fields.FieldByName("NAMECUST").Value.ToString()
-            '    row("IDCUST") = cid
-            '    row("NAMECUST") = cn
-            '    arcusds.Tables(0).Rows.Add(row)
-            '    row = cust.NewRow()
-            'Loop
-            'arv.Browse(searfil, True)
-            'Dim arcusds As DataSet = New DataSet("AR")
-
-            'Dim cust As DataTable = arcusds.Tables.Add("ARCUS")
-            'Dim id As DataColumn = cust.Columns.Add("IDCUST", Type.GetType("System.String"))
-            'Dim name As DataColumn = cust.Columns.Add("NAMECUST", Type.GetType("System.String"))
-            'cust.PrimaryKey = New DataColumn() {id}
-            'Dim row As DataRow
-            'row = cust.NewRow()
-            'Do While arv.FilterFetch(False)
-            '    Dim cid As String = arv.Fields.FieldByName("IDCUST").Value.ToString()
-            '    Dim cn As String = arv.Fields.FieldByName("NAMECUST").Value.ToString()
-            '    row("IDCUST") = cid
-            '    row("NAMECUST") = cn
-            '    arcusds.Tables(0).Rows.Add(row)
-            '    row = cust.NewRow()
-            'Loop
             DGtocus.DataSource = arcusds.Tables(0)
 
         Catch ex As Exception
@@ -265,26 +160,10 @@ Public Class tocust
                 searfil = " Where IDCUST like N'%" + Txtcusno.Text + "%' "
             End If
 
-            'arv.Browse(searfil, True)
             Dim arcusds As New DataSet
             Dim c As New Clsfunct
 
             arcusds = c.customer(searfil, OPCompany.compid)
-
-            'Dim cust As DataTable = arcusds.Tables.Add("ARCUS")
-            'Dim id As DataColumn = cust.Columns.Add("IDCUST", Type.GetType("System.String"))
-            'Dim name As DataColumn = cust.Columns.Add("NAMECUST", Type.GetType("System.String"))
-            'cust.PrimaryKey = New DataColumn() {id}
-            'Dim row As DataRow
-            'row = cust.NewRow()
-            'Do While arv.FilterFetch(False)
-            '    Dim cid As String = arv.Fields.FieldByName("IDCUST").Value.ToString()
-            '    Dim cn As String = arv.Fields.FieldByName("NAMECUST").Value.ToString()
-            '    row("IDCUST") = cid
-            '    row("NAMECUST") = cn
-            '    arcusds.Tables(0).Rows.Add(row)
-            '    row = cust.NewRow()
-            'Loop
             DGtocus.DataSource = arcusds.Tables(0)
 
         Catch ex As Exception
@@ -305,26 +184,13 @@ Public Class tocust
                 searfil = " Where IDCUST like N'%" + Txtcusno.Text + "%' "
             End If
 
-            'arv.Browse(searfil, True)
+
             Dim arcusds As New DataSet
             Dim c As New Clsfunct
 
             arcusds = c.customer(searfil, OPCompany.compid)
 
-            'Dim cust As DataTable = arcusds.Tables.Add("ARCUS")
-            'Dim id As DataColumn = cust.Columns.Add("IDCUST", Type.GetType("System.String"))
-            'Dim name As DataColumn = cust.Columns.Add("NAMECUST", Type.GetType("System.String"))
-            'cust.PrimaryKey = New DataColumn() {id}
-            'Dim row As DataRow
-            'row = cust.NewRow()
-            'Do While arv.FilterFetch(False)
-            '    Dim cid As String = arv.Fields.FieldByName("IDCUST").Value.ToString()
-            '    Dim cn As String = arv.Fields.FieldByName("NAMECUST").Value.ToString()
-            '    row("IDCUST") = cid
-            '    row("NAMECUST") = cn
-            '    arcusds.Tables(0).Rows.Add(row)
-            '    row = cust.NewRow()
-            'Loop
+
             Dim dt As DataTable = arcusds.Tables(0)
 
             i = DGtocus.CurrentCell.RowIndex

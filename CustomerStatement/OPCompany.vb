@@ -31,6 +31,6 @@ Public Class OPCompany
         compid = CBcompname.SelectedValue
         compname = CBcompname.Text
         custstatement.Show()
-        '  Close()
+
     End Sub
 End Class

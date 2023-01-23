@@ -1,28 +1,13 @@
-﻿'Imports AccpacCOMAPI
-Friend Class custstatement
+﻿Friend Class custstatement
 
-    'Private acsignon As New AccpacSignonManager.AccpacSignonMgr
-    'Public mSession As New AccpacCOMAPI.AccpacSession
     Public frmcust As String
     Public Tocust As String
     Public fdate As String
     Public tdate As String
-    'Private rdoc As New AccpacReport
-    'Public xdbcom As AccpacDBLink
 
     Private Sub custstatement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            'sigontoccpac = True
-            '   acsignon.SignonSessionEx(AccpacSignonManager.IAccpacSignonMgr)
-            'mSession.Init("", "XX", "XX0001", "65A")
-            'acsignon.Signon(mSession)
-            'compid = mSession.CompanyID
-            'xdbcom = mSession.GetDBLink(tagDBLinkTypeEnum.DBLINK_COMPANY, tagDBLinkFlagsEnum.DBLINK_FLG_READONLY)
-            'If compid = "" Then
-            '    Close()
-            'End If
             Txttocus.Text = "zzzzzzzzzzzzzzzzzzzzzz"
-          
 
             Rbfunc.Checked = True
 
@@ -68,36 +53,6 @@ Friend Class custstatement
                 If fdate <= tdate Then
                     crviewer.Show()
 
-                    'Dim dblinkcomp As AccpacDBLink
-                    'Dim dblinksys As AccpacDBLink
-
-
-                    'dblinkcomp = mSession.OpenDBLink(tagDBLinkTypeEnum.DBLINK_COMPANY, tagDBLinkFlagsEnum.DBLINK_FLG_READWRITE)
-                    'dblinksys = mSession.OpenDBLink(tagDBLinkTypeEnum.DBLINK_SYSTEM, tagDBLinkFlagsEnum.DBLINK_FLG_READWRITE)
-
-                    'If Rbfunc.Checked = True And Rbwcw.Checked = True Then
-                    '    rdoc = mSession.ReportSelect("ARCUSTHOMERPTCW", "", "")
-                    'ElseIf Rbfunc.Checked = True And Rbwocw.Checked = True Then
-                    '    rdoc = mSession.ReportSelect("ARCUSTHOMERPT", "", "")
-                    'ElseIf Rbsource.Checked = True And Rbwcw.Checked = True Then
-                    '    rdoc = mSession.ReportSelect("ARCUSTSURCRPTCw", "", "")
-                    'ElseIf Rbsource.Checked = True And Rbwocw.Checked = True Then
-                    '    rdoc = mSession.ReportSelect("ARCUSTSURCRPT", "", "")
-                    'End If
-
-                    'rdoc.PrinterSetup(mSession.GetPrintSetup("", ""))
-                    'Dim pfdate As String = Val(Mid(Trim(Txtfd.Text), 1, 4)) * 10000 + Val(Mid(Trim(Txtfd.Text), 6, 2)) * 100 + Val(Mid(Trim(Txtfd.Text), 9, 2))
-                    'Dim ptdate As String = Val(Mid(Trim(Txttd.Text), 1, 4)) * 10000 + Val(Mid(Trim(Txttd.Text), 6, 2)) * 100 + Val(Mid(Trim(Txttd.Text), 9, 2))
-
-
-                    'rdoc.SetParam("frmyearper", pfdate)
-                    'rdoc.SetParam("toyearper", ptdate)
-                    'rdoc.SetParam("Frmcus", txtfrmcus.Text)
-                    'rdoc.SetParam("TOcus", Txttocus.Text)
-
-                    'rdoc.NumOfCopies = 1
-                    'rdoc.Destination = tagPrintDestinationEnum.PD_PREVIEW
-                    'rdoc.PrintReport()
                 Else
                     MessageBox.Show("From Date  greater than To Date")
                 End If

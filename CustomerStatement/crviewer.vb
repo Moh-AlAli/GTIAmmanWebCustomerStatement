@@ -8,46 +8,46 @@ Imports System.Text
 
 Friend Class crviewer
     Private rdoc As New ReportDocument
-    Private conrpt As New ConnectionInfo()
-    Private server As String = ""
-    Private uid As String = ""
-    Private pass As String = ""
-    Private db As String = ""
-    Private odbc As String = ""
-    Friend Function createdes(ByVal key As String) As TripleDES
-        Dim md5 As MD5 = New MD5CryptoServiceProvider()
-        Dim des As TripleDES = New TripleDESCryptoServiceProvider()
-        des.Key = md5.ComputeHash(Encoding.Unicode.GetBytes(key))
-        des.IV = New Byte(des.BlockSize \ 8 - 1) {}
-        Return des
-    End Function
-    Friend Function Decryption(ByVal cyphertext As String, ByVal key As String) As String
-        Dim b As Byte() = Convert.FromBase64String(cyphertext)
-        Dim des As TripleDES = createdes(key)
-        Dim ct As ICryptoTransform = des.CreateDecryptor()
-        Dim output As Byte() = ct.TransformFinalBlock(b, 0, b.Length)
-        Return Encoding.Unicode.GetString(output)
-    End Function
-    Friend Function Readconnectionstring() As String
+    'Private conrpt As New ConnectionInfo()
+    'Private server As String = ""
+    'Private uid As String = ""
+    'Private pass As String = ""
+    'Private db As String = ""
+    'Private odbc As String = ""
+    'Friend Function createdes(ByVal key As String) As TripleDES
+    '    Dim md5 As MD5 = New MD5CryptoServiceProvider()
+    '    Dim des As TripleDES = New TripleDESCryptoServiceProvider()
+    '    des.Key = md5.ComputeHash(Encoding.Unicode.GetBytes(key))
+    '    des.IV = New Byte(des.BlockSize \ 8 - 1) {}
+    '    Return des
+    'End Function
+    'Friend Function Decryption(ByVal cyphertext As String, ByVal key As String) As String
+    '    Dim b As Byte() = Convert.FromBase64String(cyphertext)
+    '    Dim des As TripleDES = createdes(key)
+    '    Dim ct As ICryptoTransform = des.CreateDecryptor()
+    '    Dim output As Byte() = ct.TransformFinalBlock(b, 0, b.Length)
+    '    Return Encoding.Unicode.GetString(output)
+    'End Function
+    'Friend Function Readconnectionstring() As String
 
-        Dim secretkey As String = "Fhghqwjehqwlegtoit123mnk12%&4#"
-        Dim path As String = ("txtcon\bcicon.txt")
-        Dim sr As New StreamReader(path)
+    '    Dim secretkey As String = "Fhghqwjehqwlegtoit123mnk12%&4#"
+    '    Dim path As String = ("txtcon\gticon.txt")
+    '    Dim sr As New StreamReader(path)
 
-        server = sr.ReadLine()
-        db = sr.ReadLine()
-        uid = sr.ReadLine()
-        pass = sr.ReadLine()
-        odbc = sr.ReadLine()
+    '    server = sr.ReadLine()
+    '    db = sr.ReadLine()
+    '    uid = sr.ReadLine()
+    '    pass = sr.ReadLine()
+    '    odbc = sr.ReadLine()
 
-        server = Decryption(server, secretkey)
-        uid = Decryption(uid, secretkey)
-        pass = Decryption(pass, secretkey)
-        odbc = Decryption(odbc, secretkey)
-        Dim cons As String = "" ' = "Data Source =" & server & "; DataBase =" & Agescreen.compid & "; User Id =" & uid & "; Password =" & pass & ";"
+    '    server = Decryption(server, secretkey)
+    '    uid = Decryption(uid, secretkey)
+    '    pass = Decryption(pass, secretkey)
+    '    odbc = Decryption(odbc, secretkey)
+    '    Dim cons As String = "" ' = "Data Source =" & server & "; DataBase =" & Agescreen.compid & "; User Id =" & uid & "; Password =" & pass & ";"
 
-        Return cons
-    End Function
+    '    Return cons
+    'End Function
     Private Sub crviewer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
 
@@ -104,13 +104,37 @@ Friend Class crviewer
 
             Dim c As New Clsfunct
             Dim ds As New DataSet
-            ds = c.custstatement(custstatement.txtfrmcus.Text, custstatement.Txttocus.Text, OPCompany.compid)
+            ds = c.custstatement(custstatement.txtfrmcus.Text, custstatement.Txttocus.Text, Integer.Parse(fdate), Integer.Parse(tdate), OPCompany.compid)
             'ds.WriteXmlSchema("xsd\xcuststatem.xsd")
+            Dim dsbb As New DataSet
+            dsbb = c.bb(custstatement.txtfrmcus.Text, custstatement.Txttocus.Text, Integer.Parse(fdate), OPCompany.compid)
+            'dsbb.WriteXmlSchema("xsd\xbb.xsd")
 
 
-            rdoc.Load("reports\ARStatmentErbil.rpt")
+            rdoc.Load("reports\ARStatment.rpt")
             rdoc.SetDataSource(ds)
-        
+            Dim sec As Section
+            Dim secs As Sections
+            Dim rob As ReportObject
+            Dim robs As ReportObjects
+            Dim subrpobj As SubreportObject
+            Dim subrp As ReportDocument
+            secs = rdoc.ReportDefinition.Sections
+            For Each sec In secs
+                robs = sec.ReportObjects
+                For Each rob In robs
+                    If rob.Kind = ReportObjectKind.SubreportObject Then
+                        subrpobj = CType(rob, SubreportObject)
+                        subrp = subrpobj.OpenSubreport(subrpobj.SubreportName)
+                        If subrp.Name = "OB" Then
+                            subrp.SetDataSource(dsbb)
+                        End If
+                    End If
+
+                Next
+            Next
+
+
             rdoc.SetParameterValue("FromDate", fdate)
             rdoc.SetParameterValue("ToDate", tdate)
             rdoc.SetParameterValue("FromCustomer", custstatement.txtfrmcus.Text)
