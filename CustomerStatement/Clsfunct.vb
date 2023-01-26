@@ -40,8 +40,7 @@ Public Class Clsfunct
         uid = Decryption(uid, secretkey)
         pass = Decryption(pass, secretkey)
 
-        ' Dim cons As String = "Data Source =" & server & "; DataBase =" & db & "; User Id =" & uid & "; Password =" & pass & ";"
-        Dim cons As String = "Data Source =(local); DataBase =master; User Id =sa; Password =P@$$w0rd;"
+        Dim cons As String = "Data Source =" & server & "; DataBase =" & db & "; User Id =" & uid & "; Password =" & pass & ";"
         Return cons
     End Function
     Friend Function customer(ByVal condt As String, ByVal dbname As String) As DataSet
