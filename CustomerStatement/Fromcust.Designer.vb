@@ -47,7 +47,7 @@ Partial Class Fromcust
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(6, 36)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(82, 13)
+        Me.Label2.Size = New System.Drawing.Size(83, 13)
         Me.Label2.TabIndex = 59
         Me.Label2.Text = "Customer Name"
         '
@@ -63,7 +63,7 @@ Partial Class Fromcust
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(6, 14)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(68, 13)
+        Me.Label1.Size = New System.Drawing.Size(69, 13)
         Me.Label1.TabIndex = 57
         Me.Label1.Text = "Customer No"
         '

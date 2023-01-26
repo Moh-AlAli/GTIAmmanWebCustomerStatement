@@ -56,7 +56,7 @@ Partial Class OPCompany
         Me.butopencomp.Text = "OK"
         Me.butopencomp.UseVisualStyleBackColor = True
         '
-        'Company
+        'OPCompany
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -65,7 +65,7 @@ Partial Class OPCompany
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.CBcompname)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Name = "Company"
+        Me.Name = "OPCompany"
         Me.Text = "Open Company"
         Me.ResumeLayout(False)
         Me.PerformLayout()

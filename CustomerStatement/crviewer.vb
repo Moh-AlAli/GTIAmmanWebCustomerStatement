@@ -8,46 +8,7 @@ Imports System.Text
 
 Friend Class crviewer
     Private rdoc As New ReportDocument
-    'Private conrpt As New ConnectionInfo()
-    'Private server As String = ""
-    'Private uid As String = ""
-    'Private pass As String = ""
-    'Private db As String = ""
-    'Private odbc As String = ""
-    'Friend Function createdes(ByVal key As String) As TripleDES
-    '    Dim md5 As MD5 = New MD5CryptoServiceProvider()
-    '    Dim des As TripleDES = New TripleDESCryptoServiceProvider()
-    '    des.Key = md5.ComputeHash(Encoding.Unicode.GetBytes(key))
-    '    des.IV = New Byte(des.BlockSize \ 8 - 1) {}
-    '    Return des
-    'End Function
-    'Friend Function Decryption(ByVal cyphertext As String, ByVal key As String) As String
-    '    Dim b As Byte() = Convert.FromBase64String(cyphertext)
-    '    Dim des As TripleDES = createdes(key)
-    '    Dim ct As ICryptoTransform = des.CreateDecryptor()
-    '    Dim output As Byte() = ct.TransformFinalBlock(b, 0, b.Length)
-    '    Return Encoding.Unicode.GetString(output)
-    'End Function
-    'Friend Function Readconnectionstring() As String
 
-    '    Dim secretkey As String = "Fhghqwjehqwlegtoit123mnk12%&4#"
-    '    Dim path As String = ("txtcon\gticon.txt")
-    '    Dim sr As New StreamReader(path)
-
-    '    server = sr.ReadLine()
-    '    db = sr.ReadLine()
-    '    uid = sr.ReadLine()
-    '    pass = sr.ReadLine()
-    '    odbc = sr.ReadLine()
-
-    '    server = Decryption(server, secretkey)
-    '    uid = Decryption(uid, secretkey)
-    '    pass = Decryption(pass, secretkey)
-    '    odbc = Decryption(odbc, secretkey)
-    '    Dim cons As String = "" ' = "Data Source =" & server & "; DataBase =" & Agescreen.compid & "; User Id =" & uid & "; Password =" & pass & ";"
-
-    '    Return cons
-    'End Function
     Private Sub crviewer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
 
@@ -104,10 +65,10 @@ Friend Class crviewer
 
             Dim c As New Clsfunct
             Dim ds As New DataSet
-            ds = c.custstatement(custstatement.txtfrmcus.Text, custstatement.Txttocus.Text, Integer.Parse(fdate), Integer.Parse(tdate), OPCompany.compid)
+            ds = c.custstatement(custstatement.txtfrmcus.Text, custstatement.Txttocus.Text, Integer.Parse(fdate), Integer.Parse(tdate), curr, OPCompany.compid)
             'ds.WriteXmlSchema("xsd\xcuststatem.xsd")
             Dim dsbb As New DataSet
-            dsbb = c.bb(custstatement.txtfrmcus.Text, custstatement.Txttocus.Text, Integer.Parse(fdate), OPCompany.compid)
+            dsbb = c.bb(custstatement.txtfrmcus.Text, custstatement.Txttocus.Text, Integer.Parse(fdate), curr, OPCompany.compid)
             'dsbb.WriteXmlSchema("xsd\xbb.xsd")
 
 

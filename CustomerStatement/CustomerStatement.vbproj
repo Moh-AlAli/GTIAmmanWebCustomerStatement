@@ -49,7 +49,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>CATS_Rep.ico</ApplicationIcon>
+    <ApplicationIcon>logoicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -181,6 +181,7 @@
   <ItemGroup>
     <Content Include="CATS_Rep.ico" />
     <Content Include="bin\Debug\txtcon\gticon.txt" />
+    <Content Include="logoicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\xsd\" />
